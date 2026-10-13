@@ -1,242 +1,662 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Little Surprise for You 💗</title>
-  <style>
-    :root {
-      --pink: #ff6f9f;
-      --hot-pink: #f04483;
-      --cream: #fff8fb;
-      --ink: #61384b;
-      --soft: #ffe2ed;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Babyloves 💜</title>
 
-    * { box-sizing: border-box; }
+<style>
+:root {
+  --purple: #8b5cf6;
+  --deep: #32105f;
+  --pink: #f5c7ff;
+  --lavender: #efe5ff;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 15% 15%, #fff 0 3px, transparent 4px),
-        radial-gradient(circle at 85% 25%, #fff 0 4px, transparent 5px),
-        linear-gradient(135deg, #ffe4ef, #fff8fb 48%, #ffd7e7);
-      background-size: 70px 70px, 95px 95px, auto;
-      display: grid;
-      place-items: center;
-      overflow-x: hidden;
-      padding: 24px;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .card {
-      width: min(100%, 560px);
-      position: relative;
-      text-align: center;
-      padding: clamp(28px, 6vw, 52px) clamp(22px, 5vw, 42px);
-      border: 2px solid rgba(255, 255, 255, .9);
-      border-radius: 30px;
-      background: rgba(255, 255, 255, .78);
-      box-shadow: 0 22px 65px rgba(199, 79, 125, .18);
-      backdrop-filter: blur(8px);
-      animation: pop-in .8s ease both;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: #fff;
+  background: radial-gradient(circle at top left, #a78bfa 0, #6d28d9 35%, #251044 100%);
+  overflow-x: hidden;
+}
 
-    .sticker {
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 18px;
-      display: grid;
-      place-items: center;
-      font-size: 52px;
-      border-radius: 28px;
-      background: #fff0f6;
-      box-shadow: inset 0 0 0 2px white, 0 8px 20px #f8b9d0;
-      transform: rotate(-5deg);
-    }
+.sparkles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
 
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--hot-pink);
-    }
+.heart {
+  position: absolute;
+  bottom: -50px;
+  color: #f3d8ff;
+  opacity: .65;
+  animation: floatUp linear infinite;
+  text-shadow: 0 0 12px #fff;
+}
 
-    h1 {
-      margin: 12px 0;
-      font-size: clamp(2rem, 7vw, 3.1rem);
-      line-height: 1.08;
-      color: #d83c79;
-    }
+@keyframes floatUp {
+  from {
+    transform: translateY(0) rotate(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: .7;
+  }
+  to {
+    transform: translateY(-115vh) rotate(25deg);
+    opacity: 0;
+  }
+}
 
-    .subtitle {
-      max-width: 390px;
-      margin: 0 auto 24px;
-      line-height: 1.7;
-      font-size: 1rem;
-      color: #805468;
-    }
+main {
+  position: relative;
+  z-index: 1;
+  width: min(900px, 92%);
+  margin: auto;
+  padding: 28px 0 50px;
+}
 
-    .name {
-      display: inline-block;
-      min-width: 105px;
-      color: #d83c79;
-      border-bottom: 2px dashed #ff9fbe;
-      outline: none;
-    }
+.topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
-    .name:focus { background: #fff0f6; }
+.pill {
+  border: 1px solid #ffffff55;
+  background: #ffffff18;
+  border-radius: 999px;
+  padding: 9px 14px;
+  font-size: .9rem;
+  backdrop-filter: blur(8px);
+}
 
-    .button {
-      border: 0;
-      border-radius: 999px;
-      padding: 14px 24px;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      color: white;
-      background: linear-gradient(135deg, #ff77a6, #e83f82);
-      box-shadow: 0 9px 18px rgba(232, 63, 130, .25);
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
+button,
+.upload-label {
+  cursor: pointer;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: #4c1d95;
+  background: #fff;
+  font-weight: 800;
+  box-shadow: 0 8px 24px #1b063b35;
+  transition: transform .2s;
+}
 
-    .button:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 13px 24px rgba(232, 63, 130, .3);
-    }
+button:hover,
+.upload-label:hover {
+  transform: translateY(-2px);
+}
 
-    .button:active { transform: scale(.98); }
+/* YouTube-style player */
+.music-card {
+  display: none;
+  max-width: 560px;
+  margin: 20px auto 0;
+  padding: 18px;
+  border: 1px solid #ffffff35;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #32105fef, #17102bf5);
+  box-shadow: 0 15px 40px #16052866;
+  animation: fadeIn .35s ease;
+}
 
-    .tiny-note {
-      margin-top: 18px;
-      font-size: .8rem;
-      color: #ad7c91;
-    }
+.music-card.visible {
+  display: block;
+}
 
-    .letter {
-      display: none;
-      margin-top: 26px;
-      padding: 22px;
-      text-align: left;
-      line-height: 1.8;
-      background: #fff4f8;
-      border: 1px solid #ffd0e1;
-      border-radius: 20px;
-      animation: fade-up .5s ease both;
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    .letter.show { display: block; }
+.music-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 15px;
+}
 
-    .letter h2 {
-      text-align: center;
-      color: #d83c79;
-      margin: 0 0 12px;
-      font-size: 1.45rem;
-    }
+.album-art {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f5c7ff, #8b5cf6, #32105f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 5px 20px #0003;
+}
 
-    .signature {
-      text-align: right;
-      color: #d83c79;
-      font-weight: 800;
-      margin-top: 16px;
-    }
+.music-info {
+  min-width: 0;
+}
 
-    .footer { margin-top: 24px; font-size: .78rem; color: #bd8da1; }
+.music-info h3 {
+  margin: 0 0 5px;
+  font-size: 1rem;
+}
 
-    .heart {
-      position: fixed;
-      bottom: -40px;
-      pointer-events: none;
-      z-index: 5;
-      animation: float-up linear forwards;
-      filter: drop-shadow(0 4px 4px rgba(210, 70, 125, .12));
-    }
+.music-info p {
+  margin: 0;
+  color: #d9c6f6;
+  font-size: .85rem;
+}
 
-    @keyframes float-up {
-      to { transform: translateY(-115vh) rotate(25deg); opacity: 0; }
-    }
+.equalizer {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 20px;
+  margin-left: auto;
+}
 
-    @keyframes pop-in {
-      from { opacity: 0; transform: translateY(18px) scale(.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+.equalizer span {
+  display: block;
+  width: 3px;
+  height: 7px;
+  border-radius: 5px;
+  background: #d9a8ff;
+}
 
-    @keyframes fade-up {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+.music-card.playing .equalizer span {
+  animation: equalize .65s ease-in-out infinite alternate;
+}
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-    }
-  </style>
+.equalizer span:nth-child(2) {
+  animation-delay: .2s;
+}
+
+.equalizer span:nth-child(3) {
+  animation-delay: .4s;
+}
+
+.equalizer span:nth-child(4) {
+  animation-delay: .1s;
+}
+
+@keyframes equalize {
+  from { height: 5px; }
+  to { height: 19px; }
+}
+
+.youtube-frame {
+  width: 100%;
+  height: 315px;
+  border: 0;
+  border-radius: 14px;
+  display: block;
+}
+
+.music-caption {
+  color: #d9c6f6;
+  text-align: center;
+  font-size: .76rem;
+  margin: 12px 0 0;
+}
+
+.hero {
+  text-align: center;
+  padding: 62px 10px 38px;
+}
+
+.eyebrow {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: .75rem;
+  color: #eadbff;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 8vw, 5.4rem);
+  line-height: 1.02;
+  margin: 18px 0;
+  text-shadow: 0 5px 30px #21083c80;
+}
+
+h1 span {
+  color: #ffd6fa;
+}
+
+.subtitle {
+  max-width: 580px;
+  margin: 0 auto;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: #f5edff;
+}
+
+.hero-heart {
+  font-size: 3rem;
+  display: inline-block;
+  animation: beat 1.1s infinite;
+  margin-top: 18px;
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.18); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.12); }
+}
+
+.card {
+  background: #ffffffed;
+  color: #42206d;
+  border: 1px solid #ffffff90;
+  border-radius: 26px;
+  padding: 26px;
+  margin: 18px 0;
+  box-shadow: 0 18px 50px #1b063b35;
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  color: #5b21b6;
+  font-size: 1.55rem;
+}
+
+.card p {
+  line-height: 1.65;
+}
+
+.letter {
+  font-size: 1.05rem;
+  white-space: pre-line;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.photo {
+  min-height: 150px;
+  border: 2px dashed #c4a6f7;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f4eaff, #ffe7f8);
+  color: #8656bc;
+  padding: 10px;
+}
+
+.photo img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  align-items: center;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.question {
+  text-align: center;
+}
+
+.answers {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+#answer {
+  min-height: 30px;
+  font-weight: bold;
+  color: #7c3aed;
+  margin-top: 18px;
+}
+
+.note {
+  text-align: center;
+  color: #eadbff;
+  font-size: .9rem;
+  padding-top: 16px;
+}
+
+.small {
+  font-size: .88rem;
+  color: #7955a5;
+}
+
+@media (max-width: 600px) {
+  main {
+    width: 92%;
+    padding-top: 18px;
+  }
+
+  .hero {
+    padding-top: 48px;
+  }
+
+  .youtube-frame {
+    height: 220px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .photo {
+    min-height: 120px;
+  }
+
+  .topline {
+    align-items: flex-start;
+  }
+
+  .pill {
+    font-size: .78rem;
+  }
+}
+</style>
 </head>
+
 <body>
-  <main class="card">
-    <div class="sticker" aria-hidden="true">💌</div>
-    <div class="eyebrow">A tiny surprise, just for you</div>
-    <h1>Hi, <span class="name" contenteditable="true" spellcheck="false" aria-label="Edit her name">My Baby</span>! 💗</h1>
-    <p class="subtitle">
-      You weren't expecting anything today, were you? I just wanted to remind you
-      that someone is smiling right now because you exist.
+
+<div class="sparkles" id="sparkles"></div>
+
+<main>
+
+  <div class="topline">
+    <div class="pill">💌 A little gift made with love</div>
+
+    <button id="musicBtn" type="button" aria-expanded="false">
+      ♫ Play our love song
+    </button>
+  </div>
+
+  <!-- EMBEDDED YOUTUBE PLAYER -->
+  <section class="music-card" id="musicCard" aria-label="Our love song">
+
+    <div class="music-heading">
+      <div class="album-art">💜</div>
+
+      <div class="music-info">
+        <h3>Our Love Song ♡</h3>
+        <p>A little melody, just for you</p>
+      </div>
+
+      <div class="equalizer" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <iframe
+      id="youtubeFrame"
+      class="youtube-frame"
+      src=""
+      title="YouTube love song player"
+      allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
+
+    <p class="music-caption">
+      💜 Press play and let this song remind you how loved you are.
     </p>
 
-    <button class="button" id="surpriseBtn">Open your little surprise ✨</button>
+  </section>
 
-    <section class="letter" id="loveLetter" aria-live="polite">
-      <h2>For my Baby/Ms. Flawless Girl. 🌷</h2>
-      <p>
-        If I could give you one thing, it would be the ability to see yourself
-        through my eyes. Then you'd understand how special you are to me.
-      </p>
-      <p>
-        Thank you for being you—for your smile, your little habits, and all the
-        ordinary moments that become my favorite memories because you're in them.
-        Even on a random day, I hope you remember that you're loved, appreciated,
-        and worth making an effort for.
-      </p>
-      <p>
-        No special occasion needed. No big reason. Just me, choosing to remind you
-        that you mean a lot to me. 💞
-      </p>
-      <p class="signature">At your Service, 💗</p>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
 
-  
-    <div class="footer">Made by me for you. 💗💗💗</div>
-  </main>
+    <div class="eyebrow">just for you, my favorite person</div>
 
-  <script>
-    const surpriseBtn = document.getElementById("surpriseBtn");
-    const loveLetter = document.getElementById("loveLetter");
+    <h1>Hi,<span>Baby</span> 💜</h1>
 
-    surpriseBtn.addEventListener("click", () => {
-      loveLetter.classList.toggle("show");
-      surpriseBtn.textContent = loveLetter.classList.contains("show")
-        ? "Send more love 💕"
-        : "Open your little surprise ✨";
-      burstHearts(24);
+    <p class="subtitle">
+      I made this little corner of the internet just for you—because
+      someone as special as you deserves something made with extra love.
+    </p>
+
+    <div class="hero-heart">💜</div>
+
+  </section>
+
+  <!-- LOVE LETTER -->
+  <section class="card">
+
+    <h2>💌 A little letter for you</h2>
+
+    <p class="letter">Baby,
+
+You make me happy just by being in my life. I’m so thankful to have you, and I hope you know how much you mean to me.
+
+I made this little website just for you, to remind you that you are loved, always. No matter what happens, I’ll always be here, loving you and choosing you every day.
+
+You’re one of the best things that ever happened to me, baby. 💜
+
+Love youuu, babyy! ♡</p>
+
+  </section>
+
+  <!-- THE IMPORTANT QUESTION -->
+  <section class="card question">
+
+    <h2>🥹 One very important question...</h2>
+
+    <p>
+      Will you keep being my favorite person and let me love you
+      a little more every day?
+    </p>
+
+    <div class="answers">
+
+      <button id="yesBtn" type="button">
+        YES, ALWAYS! 💜
+      </button>
+
+      <button id="alsoYesBtn" type="button">
+        Of course, silly! 🥰
+      </button>
+
+    </div>
+
+    <div id="answer" aria-live="polite"></div>
+
+  </section>
+
+  <p class="note">
+    Made with 💜, a little code, and lots of love.
+    <br>
+    Forever your person ♡
+  </p>
+
+</main>
+
+<script>
+
+
+const sparkleLayer = document.getElementById('sparkles');
+
+const heartChars = ['♥', '♡', '💜', '✦'];
+
+for (let i = 0; i < 28; i++) {
+  const heart = document.createElement('span');
+
+  heart.className = 'heart';
+
+  heart.textContent =
+    heartChars[Math.floor(Math.random() * heartChars.length)];
+
+  heart.style.left = Math.random() * 100 + '%';
+  heart.style.fontSize = (14 + Math.random() * 24) + 'px';
+  heart.style.animationDuration = (8 + Math.random() * 13) + 's';
+  heart.style.animationDelay = (-Math.random() * 18) + 's';
+
+  sparkleLayer.appendChild(heart);
+}
+
+
+
+
+const musicBtn = document.getElementById('musicBtn');
+const musicCard = document.getElementById('musicCard');
+const youtubeFrame = document.getElementById('youtubeFrame');
+
+const youtubeVideoId = 'AMDO21q0J4c';
+
+musicBtn.addEventListener('click', () => {
+
+  const isOpen = musicCard.classList.contains('visible');
+
+  if (isOpen) {
+
+    // Hide player and stop its playback
+    musicCard.classList.remove('visible', 'playing');
+
+    youtubeFrame.src = '';
+
+    musicBtn.textContent = '♫ Play our love song';
+
+    musicBtn.setAttribute('aria-expanded', 'false');
+
+  } else {
+
+    // Load YouTube directly inside this page (same tab)
+    const params = new URLSearchParams({
+      autoplay: '1',
+      start: '0',
+      playsinline: '1',
+      rel: '0'
     });
 
-    function burstHearts(amount = 12) {
-      const hearts = ["💗", "💖", "💕", "💘", "🌸", "✨"];
-      for (let i = 0; i < amount; i++) {
-        const heart = document.createElement("span");
-        heart.className = "heart";
-        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (16 + Math.random() * 22) + "px";
-        heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-        document.body.appendChild(heart);
-        heart.addEventListener("animationend", () => heart.remove());
-      }
+   
+    if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+      params.set('origin', window.location.origin);
     }
 
-    // A few gentle hearts float by even before the button is clicked.
-    setTimeout(() => burstHearts(8), 700);
-  </script>
+    youtubeFrame.src =
+      'https://www.youtube.com/embed/' +
+      encodeURIComponent(youtubeVideoId) +
+      '?' + params.toString();
+
+    musicCard.classList.add('visible');
+
+    musicBtn.textContent = '♫ Hide music player';
+
+    musicBtn.setAttribute('aria-expanded', 'true');
+
+    musicCard.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+
+  }
+
+});
+
+
+
+
+const answer = document.getElementById('answer');
+
+const replies = [
+  'YAYYY! You just made my heart the happiest. I love you, Baby! 💜🥹',
+  'Hehe, I knew it! Come here for the biggest hug ever. 🫂💜'
+];
+
+document.getElementById('yesBtn').addEventListener('click', () => {
+
+  answer.textContent = replies[0];
+
+  burstHearts();
+
+});
+
+document.getElementById('alsoYesBtn').addEventListener('click', () => {
+
+  answer.textContent = replies[1];
+
+  burstHearts();
+
+});
+
+
+
+function burstHearts() {
+
+  for (let i = 0; i < 18; i++) {
+
+    const h = document.createElement('span');
+
+    h.textContent = ['💜', '💖', '💕', '♡'][
+      Math.floor(Math.random() * 4)
+    ];
+
+    h.style.position = 'fixed';
+    h.style.left = (35 + Math.random() * 30) + 'vw';
+    h.style.top = (35 + Math.random() * 30) + 'vh';
+    h.style.zIndex = '5';
+    h.style.pointerEvents = 'none';
+    h.style.fontSize = (18 + Math.random() * 24) + 'px';
+    h.style.transition = 'transform 1.3s ease, opacity 1.3s ease';
+
+    document.body.appendChild(h);
+
+    requestAnimationFrame(() => {
+
+      h.style.transform =
+        `translate(${(Math.random() - .5) * 280}px, ` +
+        `${-80 - Math.random() * 220}px) ` +
+        `rotate(${Math.random() * 80 - 40}deg)`;
+
+      h.style.opacity = '0';
+
+    });
+
+    setTimeout(() => h.remove(), 1400);
+
+  }
+
+}
+</script>
+
 </body>
 </html>
